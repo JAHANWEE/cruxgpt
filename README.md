@@ -1,4 +1,4 @@
-# ChaiGPT
+# CruxGPT
 
 A ChatGPT-style AI chat app built with Next.js. Sign in, start a conversation, and stream replies from an OpenAI model in real time — with persistent history, a sidebar of chats, pin/rename/delete, and light/dark theming.
 
