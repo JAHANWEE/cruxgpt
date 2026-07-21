@@ -58,9 +58,9 @@ export function ChatComposer({
   return (
     <form
       onSubmit={(event) => void handleSubmit(event)}
-      className={cn("mx-auto w-full max-w-3xl px-4 pb-4 md:px-6", className)}
+      className={cn("mx-auto w-full max-w-3xl px-4 pb-6 md:px-6 z-10", className)}
     >
-      <InputGroup className="h-auto min-h-14 rounded-3xl border-border/80 bg-background shadow-sm dark:bg-input/40">
+      <InputGroup className="h-auto min-h-14 rounded-full border border-white/5 bg-neutral-900/40 glass shadow-[0_0_40px_rgba(0,0,0,0.5)] transition-all duration-300 focus-within:ring-1 focus-within:ring-white/20">
         <InputGroupTextarea
           ref={textareaRef}
           value={value}
@@ -75,17 +75,17 @@ export function ChatComposer({
           <InputGroupButton
             type="submit"
             size="icon-sm"
-            variant="default"
+            variant="secondary"
             disabled={!canSend}
-            className="size-9 rounded-full"
+            className="size-10 rounded-full bg-white text-black hover:bg-neutral-200 transition-colors duration-300"
             aria-label="Send message"
           >
-            {isSending ? <Spinner /> : <ArrowUpIcon />}
+            {isSending ? <Spinner className="size-4" /> : <ArrowUpIcon className="size-5" />}
           </InputGroupButton>
         </InputGroupAddon>
       </InputGroup>
-      <p className="mt-2 text-center text-xs text-muted-foreground">
-        CruxGPT can make mistakes. Check important info.
+      <p className="mt-4 text-center text-[11px] font-medium tracking-wide text-white/30 uppercase">
+        CruxGPT can make mistakes. Verify important info.
       </p>
     </form>
   );

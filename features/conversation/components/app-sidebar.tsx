@@ -11,7 +11,7 @@ import {
   Trash2Icon,
 } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
-import { useTheme } from "next-themes";
+
 
 import { Button } from "@/components/ui/button";
 import {
@@ -219,21 +219,8 @@ function ChatItem({
 }
 
 function SidebarFooterMenu() {
-  const { resolvedTheme, setTheme } = useTheme();
-
   return (
     <SidebarMenu>
-      <SidebarMenuItem>
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          className="w-full justify-start"
-          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-        >
-          Toggle theme
-        </Button>
-      </SidebarMenuItem>
       <SidebarMenuItem>
         <div className="flex items-center gap-2 px-1 py-1.5">
           <UserButton

@@ -9,9 +9,11 @@ export type LoaderProps = HTMLAttributes<HTMLDivElement> & {
 
 export const Loader = ({ className, size = 16, ...props }: LoaderProps) => (
   <div
-    className={cn("inline-flex items-center justify-center", className)}
+    className={cn("flex items-center justify-center gap-1.5 h-6", className)}
     {...props}
   >
-    <Loader2Icon className="animate-spin" size={size} />
+    <div className="w-1.5 h-1.5 bg-foreground/60 rounded-full animate-bounce [animation-delay:-0.3s]" />
+    <div className="w-1.5 h-1.5 bg-foreground/60 rounded-full animate-bounce [animation-delay:-0.15s]" />
+    <div className="w-1.5 h-1.5 bg-foreground/60 rounded-full animate-bounce" />
   </div>
 );

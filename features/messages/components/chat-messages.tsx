@@ -22,8 +22,15 @@ type ChatMessagesProps = {
 };
 
 export function ChatMessages({ messages, status }: ChatMessagesProps) {
+  const lastMessage = messages.at(-1);
+  const hasTextParts = lastMessage?.role === "assistant" && lastMessage.parts.some(
+    (part) => part.type === "text" && part.text.length > 0
+  );
+  
   const isWaiting =
-    status === "submitted" && messages.at(-1)?.role === "user";
+    status === "submitted" ||
+    (status === "streaming" && lastMessage?.role === "user") ||
+    (status === "streaming" && lastMessage?.role === "assistant" && !hasTextParts);
 
   return (
     <Conversation>
@@ -41,24 +48,26 @@ export function ChatMessages({ messages, status }: ChatMessagesProps) {
                     ? String(input.query) 
                     : '...';
                   return (
-                    <div key={index} className="flex flex-col gap-2 p-3 bg-muted/50 rounded-md text-sm my-2 border">
-                      <div className="flex items-center gap-2 font-medium">
-                        <span className="text-muted-foreground text-xs uppercase tracking-wider">Web Search</span>
-                        <span>{query}</span>
+                    <div key={index} className="flex items-center gap-3 w-fit px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs text-muted-foreground my-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold tracking-wide uppercase text-[10px] text-white/50">Searching</span>
+                        <span className="max-w-[150px] truncate">{query}</span>
                       </div>
                       {'state' in part && (part.state === 'input-streaming' || part.state === 'input-available') && (
-                        <div className="text-xs text-muted-foreground flex items-center gap-2">
-                          <Loader /> Fetching results...
+                        <div className="flex items-center gap-1.5 opacity-80">
+                          <Loader />
                         </div>
                       )}
                       {'state' in part && (part.state === 'output-available' || part.state === 'error') && (
-                        <div className="text-xs text-green-600 dark:text-green-500">
-                          ✓ Completed
+                        <div className="flex items-center gap-1 text-green-500/80">
+                          <span className="size-1.5 rounded-full bg-green-500/80 shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>
+                          <span className="text-[10px] uppercase font-bold tracking-widest">Done</span>
                         </div>
                       )}
                       {'state' in part && part.state === 'error' && (
-                        <div className="text-xs text-red-600 dark:text-red-500">
-                          ✕ Failed to fetch
+                        <div className="flex items-center gap-1 text-red-500/80">
+                          <span className="size-1.5 rounded-full bg-red-500/80 shadow-[0_0_8px_rgba(239,68,68,0.5)]"></span>
+                          <span className="text-[10px] uppercase font-bold tracking-widest">Failed</span>
                         </div>
                       )}
                     </div>
