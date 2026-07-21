@@ -3,7 +3,7 @@
 import { requireUser } from "@/features/auth/actions/require-user";
 import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+
 
 export async function branchConversation(messageId: string) {
   const user = await requireUser();
@@ -60,6 +60,6 @@ export async function branchConversation(messageId: string) {
   // Revalidate the home route so the sidebar updates
   revalidatePath("/", "layout");
 
-  // Redirect to the new conversation branch
-  redirect(`/c/${newConversation.id}`);
+  // Return the new conversation id so the client can redirect
+  return newConversation.id;
 }
