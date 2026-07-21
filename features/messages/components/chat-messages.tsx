@@ -58,13 +58,13 @@ export function ChatMessages({ messages, status }: ChatMessagesProps) {
                           <Loader />
                         </div>
                       )}
-                      {'state' in part && (part.state === 'output-available' || part.state === 'error') && (
+                      {'state' in part && part.state === 'done' && (
                         <div className="flex items-center gap-1 text-green-500/80">
                           <span className="size-1.5 rounded-full bg-green-500/80 shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>
                           <span className="text-[10px] uppercase font-bold tracking-widest">Done</span>
                         </div>
                       )}
-                      {'state' in part && part.state === 'error' && (
+                      {'state' in part && (part.state === 'output-error' || part.state === 'output-denied') && (
                         <div className="flex items-center gap-1 text-red-500/80">
                           <span className="size-1.5 rounded-full bg-red-500/80 shadow-[0_0_8px_rgba(239,68,68,0.5)]"></span>
                           <span className="text-[10px] uppercase font-bold tracking-widest">Failed</span>
