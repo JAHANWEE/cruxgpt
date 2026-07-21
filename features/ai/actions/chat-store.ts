@@ -31,7 +31,7 @@ export async function loadChatMessages(
 
   return rows.map((row) => ({
     id: row.id,
-    role: row.role === "ASSISTANT" ? "assistant" : "user",
+    role: row.role === "ASSISTANT" ? "assistant" : row.role === "TOOL" ? "tool" : row.role === "SYSTEM" ? "system" : "user",
     parts: toUIMessageParts(row.parts, row.content),
   }));
 }
@@ -52,7 +52,11 @@ export async function saveChatMessages(
     if (message.role === "system") continue;
 
     const content = getMessageText(message);
-    const role = message.role === "assistant" ? "ASSISTANT" : "USER";
+    let role: "USER" | "ASSISTANT" | "SYSTEM" | "TOOL";
+    if (message.role === "assistant") role = "ASSISTANT";
+    else if (message.role === "tool") role = "TOOL";
+    else if (message.role === "system") role = "SYSTEM";
+    else role = "USER";
 
     await prisma.message.upsert({
       where: { id: message.id },

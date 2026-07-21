@@ -24,8 +24,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ChaiGPT",
-  description: "Chat with ChaiGPT",
+  title: "CruxGPT",
+  description: "Chat with CruxGPT",
 };
 
 export default function RootLayout({

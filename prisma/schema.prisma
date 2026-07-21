@@ -36,6 +36,8 @@ model Conversation {
   updatedAt     DateTime @updatedAt
   lastMessageAt DateTime @default(now()) // denormalized for fast sidebar sorting
 
+  forkedFromId  String? // track if this conversation was branched from a message
+
   user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   messages Message[]
 

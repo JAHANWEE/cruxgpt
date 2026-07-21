@@ -10,12 +10,13 @@ import { prisma } from "@/lib/db";
 export async function requireUser() {
   const { userId } = await auth.protect();
 
-  const user = await prisma.user.findUnique({
+  let user = await prisma.user.findUnique({
     where: { clerkId: userId },
   });
 
   if (!user) {
-    throw new Error("User not found. Complete onboarding first.");
+    const { onBoard } = await import("./onboard");
+    user = await onBoard();
   }
 
   return user;
