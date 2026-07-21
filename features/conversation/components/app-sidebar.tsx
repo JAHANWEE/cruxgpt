@@ -75,17 +75,19 @@ export function AppSidebar() {
               <span>CruxGPT</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip="New chat" render={<Link href="/" />}>
-              <PlusIcon />
-              <span>New chat</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
 
       <SidebarContent>
         <SidebarGroup>
+          <SidebarMenu className="mb-4">
+            <SidebarMenuItem>
+              <SidebarMenuButton tooltip="New chat" render={<Link href="/" />} className="bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                <PlusIcon />
+                <span>New chat</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
           <SidebarGroupLabel>Chats</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -171,7 +173,7 @@ function ChatItem({
         isActive={isActive}
         tooltip={conversation.title}
         render={<Link href={`/c/${conversation.id}`} />}
-        className={cn(isActive && "font-medium")}
+        className={cn(isActive && "bg-white/10 font-semibold text-white")}
       >
         <span className="truncate">{conversation.title}</span>
       </SidebarMenuButton>
